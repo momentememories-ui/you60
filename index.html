@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
+<!DOCTYPE html><html lang="th"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Will you be my girlfriend?</title>
@@ -137,40 +135,41 @@
         .inv-slot.filled { background: white; border: 2px solid var(--primary); }
         .inv-slot.filled img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- MODAL PREVIEW (ปรับแต่งเพื่อไม่ให้รูปภาพล้นจอ) --- */
+        /* --- MODAL POLAROID STYLE --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.7); z-index: 100;
             display: none; align-items: center; justify-content: center;
             backdrop-filter: blur(5px);
-            padding: 20px; box-sizing: border-box; /* เพิ่ม padding กันขอบจอ */
+            padding: 20px; box-sizing: border-box;
         }
         .modal-card {
-            background: white; padding: 15px 15px 25px 15px;
-            border-radius: 15px; 
+            background: white; 
+            padding: 20px 20px 40px 20px; /* เพิ่ม padding ล่างให้เป็นกรอบโพลารอยด์ */
+            border-radius: 5px; 
             width: 100%;
-            max-width: 320px; /* จำกัดความกว้างสูงสุด */
-            max-height: 85vh; /* จำกัดความสูงสูงสุดไม่ให้เกินหน้าจอ */
-            display: flex; flex-direction: column; /* จัดเรียงเนื้อหาแนวตั้ง */
+            max-width: 300px;
+            display: flex; flex-direction: column; 
             align-items: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             animation: zoomIn 0.3s ease;
-            box-sizing: border-box;
-            overflow-y: auto; /* เปิดให้ scroll ภายในตัวการ์ดได้หากเนื้อหาบนจอมือถือเล็กๆ ยาวเกินไป */
         }
         .modal-card img { 
             width: 100%; 
-            max-height: 45vh; /* ควบคุมไม่ให้รูปภาพสูงเกินจนดันส่วนอื่นล้นจอ */
-            object-fit: contain; /* ให้รูปย่อขนาดสัดส่วนพอดี ไม่บิดเบี้ยว */
-            border-radius: 8px; 
-            margin-bottom: 15px; 
+            aspect-ratio: 1/1; /* ทำให้รูปเป็นจัตุรัส */
+            object-fit: cover; 
+            margin-bottom: 20px; 
+            border: 1px solid #ddd;
+        }
+        #previewCaption {
+            text-align: center; /* จัดตัวหนังสือให้อยู่ตรงกลาง */
+            width: 100%;
         }
         .btn-keep {
             background: var(--primary); color: white; border: none;
             padding: 10px 25px; border-radius: 30px; font-family: 'Kanit';
             font-size: 1rem; cursor: pointer; margin-top: 15px;
             box-shadow: 0 5px 10px rgba(255, 92, 138, 0.4);
-            flex-shrink: 0; /* ป้องกันปุ่มโดนบีบย่อขนาด */
         }
         @keyframes zoomIn { from { transform: scale(0.5); } to { transform: scale(1); } }
 
@@ -185,7 +184,6 @@
             overflow: hidden;
         }
          
-        /* Container สำหรับ floaters เฉพาะหน้าจบ */
         .final-floaters {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 201; pointer-events: none;
@@ -208,9 +206,7 @@
         .final-msg-box h1 { color: var(--primary); font-size: 2.2rem; margin-bottom: 15px; }
         .final-msg-box p { font-size: 1.1rem; line-height: 1.7; color: #555; }
 
-    </style>
-</head>
-<body onclick="playAudio()">
+    </style></head><body onclick="playAudio()">
 
     <audio id="bgm" loop><source src="song.mp3" type="audio/mpeg"></audio>
 
@@ -272,7 +268,7 @@
     <div class="modal-overlay" id="previewModal">
         <div class="modal-card">
             <img src="" id="previewImg">
-            <p id="previewCaption" style="font-weight:600; color:#555; margin:0; line-height: 1.5; white-space: pre-line;"></p>
+            <p id="previewCaption" style="font-weight:600; color:#555; line-height: 1.5; white-space: pre-line;"></p>
             <button class="btn-keep" onclick="confirmKeep()">เก็บใส่กระเป๋า ❤️</button>
         </div>
     </div>
@@ -281,7 +277,7 @@
         <div class="final-floaters" id="finalFloaters"></div>
         
         <div class="final-msg-box">
-            <h1>เป็นแฟนกัน\nมั้ยเธอ</h1>
+            <h1>เป็นแฟนกัน<br>มั้ยเธอ</h1>
             <p>
                 ขอให้เค้าเป็นคนที่อยู่ข้างๆเธอนะ 💐❤️😊
             </p>
@@ -289,8 +285,7 @@
     </div>
 
     <script>
-        // --- CONFIG ---
-        const startDate = new Date(2026, 5, 11); // 11 มิ.ย. 69 (JavaScript นับเดือนเริ่มจาก 0: 5 = มิถุนายน)
+        const startDate = new Date(2026, 5, 11);
         const photos = [
             { src: "photo1.jpg", caption: "เป็นวันแรกที่เริ่มคุย\nกว่าจะกล้าทักเขินแถบจะบ้าตาย 😅" },
             { src: "photo2.jpg", caption: "เราชอบทุกครั้งที่ตื่นมาแล้ว\nเปิดแชทมาเจอเธบอกมอนิ่ง\nน่ารักกกมาก ☺️" },
@@ -299,7 +294,6 @@
             { src: "photo5.jpg", caption: "อยู่เป็นกำลังใจให้กันตลอดไปเลยนะคับ\nจะสุขหรือทุกข์\nเราก็จะอยู่ข้างๆเธอเสมอนะ ❤️☺️" }
         ];
 
-        // --- GLOBAL: AUDIO & BACKGROUND ---
         let audioPlaying = false;
         function playAudio() {
             if(!audioPlaying) {
@@ -323,9 +317,8 @@
                 container.appendChild(el);
             }
         }
-        createFloaters('bgFloaters', 20); // Create global floaters
+        createFloaters('bgFloaters', 20);
 
-        // --- NAVIGATION ---
         function goTo(id) {
             document.querySelectorAll('.page').forEach(p => {
                 p.style.opacity = 0;
@@ -340,7 +333,6 @@
             }, 500);
         }
 
-        // --- PAGE 1: CHASE ---
         const env = document.getElementById('envelope');
         env.style.left = "50%"; env.style.top = "40%"; env.style.transform = "translate(-50%, -50%)";
         function moveEnv() {
@@ -356,8 +348,6 @@
         }
         env.onclick = () => goTo('page2');
 
-        // --- PAGE 2: TIMER ---
-        let percent = 0;
         function startTimer() {
             setInterval(() => {
                 const now = new Date();
@@ -369,14 +359,14 @@
                 document.getElementById('timer').innerText = `${days} วัน ${h} ชั่วโมง ${m} นาที ${s} วินาที`;
             }, 1000);
         }
+        let percent = 0;
         function fillHeart() {
-            percent += 10; if(percent > 100) percent = 100; // ขึ้นทีละ 10%
+            percent += 10; if(percent > 100) percent = 100;
             document.getElementById('waterLevel').setAttribute('y', 200 - (200 * (percent/100)));
             document.getElementById('percent').innerText = percent + "%";
             if(percent >= 100) setTimeout(() => goTo('page3'), 800);
         }
 
-        // --- PAGE 3: SCRATCH ---
         function startScratch() {
             const c = document.getElementById('scratchCanvas'); const ctx = c.getContext('2d');
             ctx.fillStyle = '#C0C0C0'; ctx.fillRect(0,0,300,300);
@@ -385,7 +375,7 @@
                 ctx.globalCompositeOperation = 'destination-out'; ctx.beginPath(); ctx.arc(x,y,25,0,Math.PI*2); ctx.fill();
                 const d = ctx.getImageData(0,0,300,300).data; let t = 0;
                 for(let i=3; i<d.length; i+=4) if(d[i]===0) t++;
-                if(t/(300*300) > 0.9) { // ขูดถึง 90% แล้วไปหน้าถัดไป
+                if(t/(300*300) > 0.9) {
                     c.style.display = 'none'; 
                     setTimeout(() => goTo('page4'), 1000); 
                 }
@@ -396,7 +386,6 @@
             c.addEventListener('touchstart', (e)=>{down();e.preventDefault()}); c.addEventListener('touchend', up); c.addEventListener('touchmove', move);
         }
 
-        // --- PAGE 4: GALLERY LOGIC ---
         let currentPhotoIdx = 0; let currentElement = null; let collected = 0;
         function foundPhoto(idx, el) {
             currentPhotoIdx = idx; currentElement = el;
@@ -419,6 +408,6 @@
                 }
             }, 300);
         }
-    </script>
-</body>
-</html>
+    </script></body></html>
+
+```
